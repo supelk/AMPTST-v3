@@ -1,0 +1,3 @@
+>logs/AMPTST/main/$model_id'_'$seq_len'_'$pred_len'_'$features'_'$d_model'_'$n_heads'_'$e_layers'_'$d_ff'_'$des
+
+default BS16

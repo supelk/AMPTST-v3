@@ -1,0 +1,9 @@
+bash .//scripts//V3//public//weather_basic.sh
+bash .//scripts//V3//public//traffic_basic.sh
+bash .//scripts//V3//public//eletrictiy_basic.sh
+bash .//scripts//V3//public//exchange_rate_basic.sh
+bash .//scripts//V3//public//ETT_h1_basic.sh
+bash .//scripts//V3//public//ETT_h2_basic.sh
+bash .//scripts//V3//public//ETT_m1_basic.sh
+bash .//scripts//V3//public//ETT_m2_basic.sh
+bash .//scripts//V3//public//weather_pro.sh

@@ -1,0 +1,12 @@
+bash .//scripts//V3//AMPTST-v4//96Exp.sh
+bash .//scripts//V3//AMPTST-v4//168Exp.sh
+bash .//scripts//V3//AMPTST-v4//96Exp3.0.sh
+bash .//scripts//V3//AMPTST-v4//168Exp3.0.sh
+bash .//scripts//V3//AMPTST-v4//h57//96Exp.sh
+bash .//scripts//V3//AMPTST-v4//h57//168Exp.sh
+bash .//scripts//V3//AMPTST-v4//h57//96Exp3.0.sh
+bash .//scripts//V3//AMPTST-v4//h57//168Exp3.0.sh
+bash .//scripts//V3//AMPTST-v4//96Exp3.0-1.sh
+bash .//scripts//V3//AMPTST-v4//168Exp3.0-1.sh
+bash .//scripts//V3//AMPTST-v4//h57//96Exp3.0-1.sh
+bash .//scripts//V3//AMPTST-v4//h57//168Exp3.0-1.sh
