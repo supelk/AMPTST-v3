@@ -122,7 +122,7 @@ class AMPTST(nn.Module):
                 block_in_f = F.adaptive_max_pool1d(block_in_f, 1)   # [B*t,dm,1]
                 block_in_f = torch.reshape(block_in_f,(B,-1,N)).contiguous()   # [B,t,dm]
                 block_out_f, _ = self.Multi_PTST_frequency[i](block_in_f)
-                block_trend = block_in_f.unsqueeze(1)
+                block_trend = block_out_f.unsqueeze(1)
 
                 out = (block_season * block_trend).reshape(B, -1, N)
 
