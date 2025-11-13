@@ -114,7 +114,7 @@ class AMPTST(nn.Module):
                 block_in_p = block_in.permute(0, 2, 3, 1).contiguous()  # [B,f,t,dm], seasons
                 block_in_p = torch.reshape(block_in_p, (B * block_in_p.shape[1], -1, N))  # [B*f,t,dm]
                 block_out_p, _ = self.Multi_PTST_period[i](block_in_p)
-                block_season = block_out_p.reshape(B, -1, N)  # [B,f,t,dm] > [B,T,dm]
+                block_season = block_out_p.reshape(B, -1, N)  # [B*f,t,dm] > [B,T,dm]
                 block_in_f = block_in.permute(0, 3, 2, 1).contiguous()  # [B,t,f,dm], trends
                 block_in_f = torch.reshape(block_in_f, (
                 block_in_f.shape[0] * block_in_f.shape[1], block_in_f.shape[2], block_in_f.shape[3]))  # [B*t,f,dm]
