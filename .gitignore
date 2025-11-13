@@ -8,7 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-result_v3.txt
+/result_v3.txt
 build/
 develop-eggs/
 dist/
