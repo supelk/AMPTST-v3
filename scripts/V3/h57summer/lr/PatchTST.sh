@@ -3,7 +3,7 @@ f=57
 model_name=PatchTST
 seq_len=96
 pred_len=96
-for lreaning_rate in 0.01 0.001 0.0001 0.00001
+for learning_rate in 0.01 0.001 0.0001 0.00001
 do
   python -u run.py \
     --task_name long_term_forecast \

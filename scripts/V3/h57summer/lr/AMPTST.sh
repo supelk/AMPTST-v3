@@ -9,7 +9,7 @@ d_ff=32
 f=57
 data_path=h57summer.csv
 
-for lreaning_rate in 0.01 0.001 0.0001 0.00001
+for learning_rate in 0.01 0.001 0.0001 0.00001
 do
   python -u run.py \
     --task_name long_term_forecast \
@@ -37,8 +37,8 @@ do
     --down_sampling_layers 3 \
     --down_sampling_window 2 \
     --down_sampling_method avg \
-    --des lr-$lreaning_rate \
-    --lreaning_rate $lreaning_rate \
+    --des lr-$learning_rate \
+    --learning_rate $learning_rate \
     --itr 1 \
     --pf 0 
 done

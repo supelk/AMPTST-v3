@@ -10,7 +10,7 @@ down_sampling_window=2
 d_model=32
 d_ff=32
 f=57
-for lreaning_rate in 0.01 0.001 0.0001 0.00001
+for learning_rate in 0.01 0.001 0.0001 0.00001
 do
   python -u run.py \
     --task_name long_term_forecast \
