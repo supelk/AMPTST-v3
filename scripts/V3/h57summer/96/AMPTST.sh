@@ -10,7 +10,8 @@ d_ff=32
 f=57
 data_path=h57summer.csv
 des=Exp
-for pred_len in 24 48 96 168 192
+#for pred_len in 24 48 96 168 192
+for pred_len in 336 720
 do
   python -u run.py \
     --task_name long_term_forecast \

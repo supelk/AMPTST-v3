@@ -2,7 +2,8 @@ export CUDA_VISIBLE_DEVICES=0
 f=57
 model_name=PatchTST
 seq_len=96
-for pred_len in 24 48 96 168 192
+#for pred_len in 24 48 96 168 192
+for pred_len in 336 720
 do
   python -u run.py \
     --task_name long_term_forecast \
