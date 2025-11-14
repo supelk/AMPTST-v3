@@ -1,22 +1,21 @@
 export CUDA_VISIBLE_DEVICES=0
-model_name=AMPTST-v3
+model_name=AMPTST-v2
 
-seq_len=96
+seq_len=168
 e_layers=3
 
 d_model=32
 d_ff=32
 
 f=57
-data_path=h57summer.csv
-des=Exp
+data_path=h57summer1.csv
+des=psl
 for pred_len in 24 48 96 168 192
-#for pred_len in 336 720
 do
   python -u run.py \
     --task_name long_term_forecast \
     --is_training 1 \
-    --model_id h57s \
+    --model_id h57s1\
     --model $model_name \
     --data custom \
     --root_path ./dataset/mydata_v1/ \
@@ -41,5 +40,7 @@ do
     --down_sampling_method avg \
     --des $des \
     --itr 1 \
-    --pf 0 
+    --pf 0 \
+    --use_ps_loss 1 \
+    --head_or_projection 0
 done

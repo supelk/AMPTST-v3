@@ -2,15 +2,15 @@ export CUDA_VISIBLE_DEVICES=0
 f=57
 model_name=PatchTST
 seq_len=96
-for pred_len in 24 48 96 168 192
-#for pred_len in 336 720
+pred_len=96
+for learning_rate in 0.01 0.001 0.0001 0.00001
 do
   python -u run.py \
     --task_name long_term_forecast \
     --is_training 1 \
     --root_path ./dataset/mydata_v1/ \
-    --data_path h57summer.csv \
-    --model_id h57s \
+    --data_path h57summer1.csv \
+    --model_id h57s1\
     --model $model_name \
     --data custom \
     --features MS \
@@ -26,11 +26,8 @@ do
     --enc_in $f \
     --dec_in $f \
     --c_out $f \
-    --learning_rate 0.01 \
-    --des 'Exp' \
+    --learning_rate $learning_rate \
+    --des lr-$learning_rate \
     --itr 1 \
-    --n_heads 4 \
-    --ps_lambda 10.0 \
-    --use_ps_loss 0 \
-    --head_or_projection 0
+    --n_heads 4
 done

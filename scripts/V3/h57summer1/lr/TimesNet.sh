@@ -2,16 +2,15 @@ export CUDA_VISIBLE_DEVICES=0
 model_name=TimesNet
 f=57
 seq_len=96
-
-for pred_len in 24 48 96 168 192
-#for pred_len in 336 720
+pred_len=96
+for learning_rate in 0.01 0.001 0.0001 0.00001
 do
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path ./dataset/mydata_v1/ \
-  --data_path h57summer.csv \
-  --model_id h57s \
+  --data_path h57summer1.csv \
+  --model_id h57s1\
   --model $model_name \
   --data custom \
   --features MS \
@@ -26,12 +25,9 @@ python -u run.py \
   --c_out $f \
   --d_model 32 \
   --d_ff 32 \
-  --learning_rate 0.01 \
+  --learning_rate $learning_rate \
   --top_k 5 \
-  --des 'Exp' \
-  --itr 1 \
-  --ps_lambda 10.0 \
-  --use_ps_loss 0 \
-  --head_or_projection 1
+  --des lr-$learning_rate \
+  --itr 1
 done
 

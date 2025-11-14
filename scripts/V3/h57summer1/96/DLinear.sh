@@ -2,7 +2,7 @@ seq_len=96
 model_name=DLinear
 
 root_path=./dataset/mydata_v1/
-data_path=h57summer.csv
+data_path=h57summer1.csv
 model_id_name=h57s
 data_name=custom
 

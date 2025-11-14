@@ -1,17 +1,16 @@
 export CUDA_VISIBLE_DEVICES=0
 model_name=TimesNet
 f=57
-seq_len=96
+seq_len=168
 
 for pred_len in 24 48 96 168 192
-#for pred_len in 336 720
 do
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path ./dataset/mydata_v1/ \
-  --data_path h57summer.csv \
-  --model_id h57s \
+  --data_path h57summer1.csv \
+  --model_id h57s1\
   --model $model_name \
   --data custom \
   --features MS \

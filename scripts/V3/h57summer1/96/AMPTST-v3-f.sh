@@ -1,5 +1,5 @@
 export CUDA_VISIBLE_DEVICES=0
-model_name=AMPTST-v3
+model_name=AMPTST-v3-f
 
 seq_len=96
 e_layers=3
@@ -8,15 +8,14 @@ d_model=32
 d_ff=32
 
 f=57
-data_path=h57summer.csv
+data_path=h57summer1.csv
 des=Exp
 for pred_len in 24 48 96 168 192
-#for pred_len in 336 720
 do
   python -u run.py \
     --task_name long_term_forecast \
     --is_training 1 \
-    --model_id h57s \
+    --model_id h57s1\
     --model $model_name \
     --data custom \
     --root_path ./dataset/mydata_v1/ \

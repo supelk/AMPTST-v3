@@ -3,21 +3,21 @@
 model_name=TimeMixer
 
 seq_len=96
+pred_len=96
 e_layers=3
 down_sampling_layers=3
 down_sampling_window=2
 d_model=32
 d_ff=32
 f=57
-for pred_len in 24 48 96 168 192
-#for pred_len in 336 720
+for learning_rate in 0.01 0.001 0.0001 0.00001
 do
   python -u run.py \
     --task_name long_term_forecast \
     --is_training 1 \
     --root_path ./dataset/mydata_v1/ \
-    --data_path h57summer.csv \
-    --model_id h57s \
+    --data_path h57summer1.csv \
+    --model_id h57s1\
     --model $model_name \
     --data custom \
     --features MS \
@@ -30,14 +30,13 @@ do
     --enc_in $f \
     --dec_in $f \
     --c_out $f \
-    --des 'Exp' \
+    --des lr-$learning_rate \
+    --learning_rate $learning_rate \
     --itr 1 \
     --d_model $d_model \
     --d_ff $d_ff \
     --down_sampling_layers $down_sampling_layers \
     --down_sampling_method avg \
-    --down_sampling_window $down_sampling_window \
-    --ps_lambda 10.0 \
-    --use_ps_loss 0
+    --down_sampling_window $down_sampling_window
 done
 

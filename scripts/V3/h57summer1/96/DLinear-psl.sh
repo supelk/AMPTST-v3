@@ -2,12 +2,11 @@ seq_len=96
 model_name=DLinear
 
 root_path=./dataset/mydata_v1/
-data_path=h57summer.csv
+data_path=h57summer1.csv
 model_id_name=h57s
 data_name=custom
 
 for pred_len in 24 48 96 168 192
-#for pred_len in 336 720
 do
     python -u run.py \
       --task_name long_term_forecast \
@@ -22,9 +21,8 @@ do
       --pred_len $pred_len \
       --enc_in 57\
       --dropout 0.1\
-      --des 'Exp' \
+      --des 'psl' \
       --itr 1 \
       --learning_rate 0.01 \
-      --ps_lambda 10.0 \
-      --use_ps_loss 0
+      --use_ps_loss 1 \
 done

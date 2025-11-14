@@ -10,8 +10,8 @@ python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path ./dataset/mydata_v1/ \
-  --data_path h57summer.csv \
-  --model_id h57s \
+  --data_path h57summer1.csv \
+  --model_id h57s1\
   --model $model_name \
   --data custom \
   --features MS \
