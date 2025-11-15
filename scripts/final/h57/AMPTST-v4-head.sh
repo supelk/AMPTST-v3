@@ -9,7 +9,7 @@ d_ff=32
 
 f=57
 data_path=h57.csv
-des=psl
+des=psl-h
 for pred_len in 24 96 192
 do
   python -u run.py \

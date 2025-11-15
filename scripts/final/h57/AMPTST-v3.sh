@@ -42,5 +42,5 @@ do
     --itr 1 \
     --pf 0 \
     --use_ps_loss 1 \
-    --head_or_projection 0
+    --head_or_projection 1
 done
