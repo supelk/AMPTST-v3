@@ -9,7 +9,7 @@ d_ff=32
 
 f=57
 data_path=h57.csv
-des=psl
+des=psl-h
 for pred_len in 24 96 192
 do
   python -u run.py \
@@ -42,5 +42,5 @@ do
     --itr 1 \
     --pf 0 \
     --use_ps_loss 1 \
-    --head_or_projection 1
+    --head_or_projection 0
 done

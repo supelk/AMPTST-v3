@@ -1,5 +1,5 @@
 export CUDA_VISIBLE_DEVICES=0
-model_name=AMPTST-v2
+model_name=AMPTST-v2-f
 
 seq_len=96
 e_layers=3

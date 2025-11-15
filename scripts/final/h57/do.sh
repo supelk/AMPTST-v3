@@ -1,0 +1,1 @@
+bash .\\scripts\\V3\\main_raw_96\\AMPTST.sh

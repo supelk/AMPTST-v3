@@ -166,7 +166,7 @@ if __name__ == '__main__':
     parser.add_argument('--individual', type=bool, default=False, help='individual or not for lstm ')
 
     #result folder
-    parser.add_argument('--result_path', type=str, default='formal', help='sub-direction of visual, result, and checkpoint.pth')
+    parser.add_argument('--result_path', type=str, default='final', help='sub-direction of visual, result, and checkpoint.pth')
     args = parser.parse_args()
     if torch.cuda.is_available() and args.use_gpu:
         args.device = torch.device('cuda:{}'.format(args.gpu))

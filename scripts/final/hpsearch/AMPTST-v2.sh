@@ -1,5 +1,5 @@
 export CUDA_VISIBLE_DEVICES=0
-model_name=AMPTST
+model_name=AMPTST-v2
 
 seq_len=96
 e_layers=3
@@ -42,5 +42,5 @@ do
     --itr 1 \
     --pf 0 \
     --use_ps_loss 1 \
-    --head_or_projection 0
+    --head_or_projection 1
 done
