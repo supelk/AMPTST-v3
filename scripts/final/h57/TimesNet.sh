@@ -27,7 +27,7 @@ python -u run.py \
   --d_ff 32 \
   --learning_rate 0.01 \
   --top_k 5 \
-  --des 'Exp' \
+  --des 'psl' \
   --itr 1 \
   --use_ps_loss 1 \
   --head_or_projection 1
