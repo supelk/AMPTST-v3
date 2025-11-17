@@ -4,7 +4,7 @@ from models import Autoformer, Transformer, TimesNet, Nonstationary_Transformer,
     Informer, LightTS, Reformer, ETSformer, Pyraformer, PatchTST, MICN, Crossformer, FiLM, iTransformer, \
     Koopa, TiDE, FreTS, TimeMixer, TSMixer, SegRNN, MambaSimple, TemporalFusionTransformer, SCINet, PAttn, TimeXer, \
     WPMixer, MultiPatchFormer, MPTST, TSTDLSTM, AMPTST_v2, AMPTST_v3, AMPTST_v4,  AMPTST_CI,m1,AMPTST_v3_p,AMPTST_v3_f,\
-    AMPTST_v1_LN,AMPTST_v2_p,AMPTST_v2_f,AMPTST_v201, AMPTST_v301
+    AMPTST_v1_LN,AMPTST_v2_p,AMPTST_v2_f,AMPTST_v201, AMPTST_v301,AMPTST_final
 
 from models import AMPTST_v1 as AMPTST
 
@@ -55,6 +55,7 @@ class Exp_Basic(object):
             'AMPTST-v4': AMPTST_v4,
             'AMPTST_CI': AMPTST_CI,
             'AMPTST-LN': AMPTST_v1_LN,
+            'AMPTST-final': AMPTST_final,
             'TSTDLSTM': TSTDLSTM,
             'm1': m1
 
