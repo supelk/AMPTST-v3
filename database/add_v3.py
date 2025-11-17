@@ -91,7 +91,7 @@ def insert_many(rows):
     placeholders = ','.join(['%s']*len(cols))
     upd = ','.join([f'{c}=VALUES({c})' for c in ['mse','mae','mape_i','r2','r2_i']])
     sql = f"""
-    INSERT INTO ft1 ({','.join(cols)})
+    INSERT INTO ft2 ({','.join(cols)})
     VALUES ({placeholders})
     ON DUPLICATE KEY UPDATE {upd}
     """
