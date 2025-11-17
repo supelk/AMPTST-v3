@@ -6,7 +6,7 @@ data_path=h57.csv
 model_id_name=h57
 data_name=custom
 
-for pred_len in 24 96 192
+for pred_len in 48
 do
       python -u run.py \
       --task_name long_term_forecast \
