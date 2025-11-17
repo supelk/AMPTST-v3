@@ -8,7 +8,7 @@ data_name=custom
 
 for pred_len in 24 96 192
 do
-    python -u run.py \
+      python -u run.py \
       --task_name long_term_forecast \
       --is_training 1 \
       --model_id $model_id_name \
@@ -24,5 +24,5 @@ do
       --des 'psl' \
       --itr 1 \
       --learning_rate 0.01 \
-      --use_ps_loss 1 \
+      --use_ps_loss 1
 done
