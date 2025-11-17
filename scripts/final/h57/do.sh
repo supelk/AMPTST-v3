@@ -1,6 +1,7 @@
 bash .//scripts//final//h57//AMPTST.sh
 bash .//scripts//final//h57//AMPTST-head.sh
 bash .//scripts//final//h57//AMPTST-v2.sh
+bash .//scripts//final//h57//AMPTST-final.sh
 bash .//scripts//final//h57//AMPTST-v201.sh
 bash .//scripts//final//h57//AMPTST-v2-head.sh
 bash .//scripts//final//h57//AMPTST-v201-head.sh
