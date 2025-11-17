@@ -3,7 +3,8 @@ model_name=TimesNet
 f=57
 seq_len=96
 
-for pred_len in 24 96 192
+#for pred_len in 24 96 192
+for pred_len in 48
 do
 python -u run.py \
   --task_name long_term_forecast \

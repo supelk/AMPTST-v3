@@ -9,7 +9,8 @@ down_sampling_window=2
 d_model=32
 d_ff=32
 f=57
-for pred_len in 24 96 192
+#for pred_len in 24 96 192
+for pred_len in 48
 do
   python -u run.py \
     --task_name long_term_forecast \

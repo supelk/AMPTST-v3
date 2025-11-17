@@ -10,7 +10,8 @@ d_ff=32
 f=57
 data_path=h57.csv
 des=psl
-for pred_len in 24 96 192
+#for pred_len in 24 96 192
+for pred_len in 48
 do
   python -u run.py \
     --task_name long_term_forecast \
