@@ -91,7 +91,7 @@ def insert_many(rows):
     placeholders = ','.join(['%s']*len(cols))
     upd = ','.join([f'{c}=VALUES({c})' for c in ['mse','mae','mape_i','r2','r2_i']])
     sql = f"""
-    INSERT INTO ft2 ({','.join(cols)})
+    INSERT INTO autoDL ({','.join(cols)})
     VALUES ({placeholders})
     ON DUPLICATE KEY UPDATE {upd}
     """
@@ -119,7 +119,7 @@ if __name__ == '__main__':
     # print('>>> 解析到记录数:', len(rows))  # ← 新增
     # print('>>> 样例:', rows[:2])  # ← 新增
 
-    file = sys.argv[1] if len(sys.argv) > 1 else '../result_final.txt'
+    file = sys.argv[1] if len(sys.argv) > 1 else '../../v100_TL/result_final.txt'
     if not Path(file).exists():
         sys.exit(f'文件不存在: {file}')
     main(file)
