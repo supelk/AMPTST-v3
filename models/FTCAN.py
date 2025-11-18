@@ -230,7 +230,7 @@ class TimeFrequencyCrossAttentionLayer(nn.Module):
         return fused_output, time_attn_weights, freq_attn_weights
 
 
-class model(nn.Module):
+class Model(nn.Module):
     """完整的频域-时域交叉注意力网络 - 对应论文第3章整体架构"""
 
     def __init__(self, configs, modes=64, dropout=0.1, use_auxiliary_loss=False):
@@ -248,7 +248,7 @@ class model(nn.Module):
             dropout: dropout率
             use_auxiliary_loss: 是否使用辅助损失（中继监督）
         """
-        super(model, self).__init__()
+        super(Model, self).__init__()
         self.seq_len = configs.seq_len
         self.pred_len = configs.pred_len
         self.k = configs.top_k
@@ -297,7 +297,7 @@ class model(nn.Module):
             if p.dim() > 1:
                 nn.init.xavier_uniform_(p)
 
-    def forward(self, x):
+    def forward(self, x,x_mark_enc=None,dec_inp=None, batch_y_mark=None):
         """
         前向传播
 
