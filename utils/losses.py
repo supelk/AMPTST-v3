@@ -87,3 +87,40 @@ class mase_loss(nn.Module):
         masep = t.mean(t.abs(insample[:, freq:] - insample[:, :-freq]), dim=1)
         masked_masep_inv = divide_no_nan(mask, masep[:, None])
         return t.mean(t.abs(target - forecast) * masked_masep_inv)
+
+# class FTCANLoss(nn.Module):
+#     """FTCAN模型的损失函数 - 对应论文3.4节"""
+#
+#     def __init__(self, lambda_aux=0.3):
+#         super(FTCANLoss, self).__init__()
+#         self.lambda_aux = lambda_aux
+#         self.mse_loss = nn.MSELoss()
+#
+#     def forward(self, outputs, targets):
+#         """
+#         计算总损失
+#
+#         参数:
+#             outputs: 模型输出 (main_output, auxiliary_outputs) 或 main_output
+#             targets: 目标值 [batch_size, pred_len]
+#         """
+#         if isinstance(outputs, tuple):
+#             # 包含辅助损失的情况
+#             main_output, auxiliary_outputs = outputs
+#             main_loss = self.mse_loss(main_output, targets)
+#
+#             aux_loss = 0
+#             for aux_out in auxiliary_outputs:
+#                 aux_loss += self.mse_loss(aux_out, targets)
+#
+#             if len(auxiliary_outputs) > 0:
+#                 aux_loss = aux_loss / len(auxiliary_outputs)
+#                 total_loss = main_loss + self.lambda_aux * aux_loss
+#             else:
+#                 total_loss = main_loss
+#
+#             return total_loss, main_loss, aux_loss
+#         else:
+#             # 只有主输出
+#             main_loss = self.mse_loss(outputs, targets)
+#             return main_loss, main_loss, torch.tensor(0.0)

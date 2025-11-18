@@ -233,8 +233,7 @@ class TimeFrequencyCrossAttentionLayer(nn.Module):
 class model(nn.Module):
     """完整的频域-时域交叉注意力网络 - 对应论文第3章整体架构"""
 
-    def __init__(self, input_dim, d_model, n_heads, seq_len, pred_len,
-                 num_layers=3, modes=64, dropout=0.1, use_auxiliary_loss=True):
+    def __init__(self, configs, modes=64, dropout=0.1, use_auxiliary_loss=False):
         """
         频域-时域交叉注意力网络
 
@@ -250,44 +249,44 @@ class model(nn.Module):
             use_auxiliary_loss: 是否使用辅助损失（中继监督）
         """
         super(model, self).__init__()
-
-        self.input_dim = input_dim
-        self.d_model = d_model
-        self.seq_len = seq_len
-        self.pred_len = pred_len
-        self.num_layers = num_layers
+        self.seq_len = configs.seq_len
+        self.pred_len = configs.pred_len
+        self.k = configs.top_k
+        self.input_dim = configs.enc_in
+        self.num_layers = configs.e_layers
+        self.d_model = configs.d_model
         self.use_auxiliary_loss = use_auxiliary_loss
 
         # 输入嵌入层 - 对应论文3.2节
         self.input_projection = nn.Sequential(
-            nn.Linear(input_dim, d_model),
+            nn.Linear(self.input_dim, self.d_model),
             nn.ReLU(),
             nn.Dropout(dropout)
         )
 
         # 位置编码
-        self.positional_encoding = PositionalEncoding(d_model, seq_len, dropout)
+        self.positional_encoding = PositionalEncoding(self.d_model, self.seq_len, dropout)
 
         # 时域-频域交叉注意力层堆叠
         self.layers = nn.ModuleList([
-            TimeFrequencyCrossAttentionLayer(d_model, n_heads, seq_len, modes, dropout)
-            for _ in range(num_layers)
+            TimeFrequencyCrossAttentionLayer(self.d_model, configs.n_heads, self.seq_len, modes, dropout)
+            for _ in range(self.num_layers)
         ])
 
         # 中继监督输出层（如果使用辅助损失）
         if use_auxiliary_loss:
             self.auxiliary_outputs = nn.ModuleList([
-                nn.Linear(d_model, 1) for _ in range(num_layers - 1)
+                nn.Linear(self.d_model, 1) for _ in range(self.num_layers - 1)
             ])
 
         # 输出投影层 - 对应论文3.4节
         self.output_projection = nn.Sequential(
-            nn.Linear(seq_len, pred_len),  # 序列长度投影
+            nn.Linear(self.seq_len, self.pred_len),  # 序列长度投影
             nn.Dropout(dropout)
         )
 
         # 最终输出层
-        self.final_output = nn.Linear(d_model, 1)
+        self.final_output = nn.Linear(self.d_model, 1)
 
         # 初始化参数
         self._init_weights()
@@ -364,86 +363,51 @@ class PositionalEncoding(nn.Module):
         return self.dropout(x)
 
 
-class FTCANLoss(nn.Module):
-    """FTCAN模型的损失函数 - 对应论文3.4节"""
 
-    def __init__(self, lambda_aux=0.3):
-        super(FTCANLoss, self).__init__()
-        self.lambda_aux = lambda_aux
-        self.mse_loss = nn.MSELoss()
-
-    def forward(self, outputs, targets):
-        """
-        计算总损失
-
-        参数:
-            outputs: 模型输出 (main_output, auxiliary_outputs) 或 main_output
-            targets: 目标值 [batch_size, pred_len]
-        """
-        if isinstance(outputs, tuple):
-            # 包含辅助损失的情况
-            main_output, auxiliary_outputs = outputs
-            main_loss = self.mse_loss(main_output, targets)
-
-            aux_loss = 0
-            for aux_out in auxiliary_outputs:
-                aux_loss += self.mse_loss(aux_out, targets)
-
-            if len(auxiliary_outputs) > 0:
-                aux_loss = aux_loss / len(auxiliary_outputs)
-                total_loss = main_loss + self.lambda_aux * aux_loss
-            else:
-                total_loss = main_loss
-
-            return total_loss, main_loss, aux_loss
-        else:
-            # 只有主输出
-            main_loss = self.mse_loss(outputs, targets)
-            return main_loss, main_loss, torch.tensor(0.0)
 
 
 # 使用示例和测试代码
-if __name__ == "__main__":
-    # 参数设置
-    batch_size = 32
-    seq_len = 100
-    pred_len = 10
-    input_dim = 5
-    d_model = 128
-    n_heads = 8
-    num_layers = 3
-
-    # 创建模型
-    model = model(
-        input_dim=input_dim,
-        d_model=d_model,
-        n_heads=n_heads,
-        seq_len=seq_len,
-        pred_len=pred_len,
-        num_layers=num_layers,
-        use_auxiliary_loss=True
-    )
-
-    # 示例输入
-    x = torch.randn(batch_size, seq_len, input_dim)
-    targets = torch.randn(batch_size, pred_len)
-
-    # 前向传播
-    main_output, auxiliary_outputs = model(x)
-
-    print("=== FTCAN模型测试 ===")
-    print(f"输入形状: {x.shape}")
-    print(f"主输出形状: {main_output.shape}")
-    print(f"辅助输出数量: {len(auxiliary_outputs)}")
-    for i, aux_out in enumerate(auxiliary_outputs):
-        print(f"辅助输出 {i + 1} 形状: {aux_out.shape}")
-
-    # 损失计算
-    criterion = FTCANLoss(lambda_aux=0.3)
-    total_loss, main_loss, aux_loss = criterion((main_output, auxiliary_outputs), targets)
-
-    print(f"\n损失计算:")
-    print(f"总损失: {total_loss.item():.4f}")
-    print(f"主损失: {main_loss.item():.4f}")
-    print(f"辅助损失: {aux_loss.item():.4f}")
-    print(f"模型参数量: {sum(p.numel() for p in model.parameters()):,}")
+# if __name__ == "__main__":
+#     # 参数设置
+#     batch_size = 32
+#     seq_len = 100
+#     pred_len = 10
+#     input_dim = 5
+#     d_model = 128
+#     n_heads = 8
+#     num_layers = 3
+#
+#     # 创建模型
+#     model = model(
+#         input_dim=input_dim,
+#         d_model=d_model,
+#         n_heads=n_heads,
+#         seq_len=seq_len,
+#         pred_len=pred_len,
+#         num_layers=num_layers,
+#         use_auxiliary_loss=True
+#     )
+#
+#     # 示例输入
+#     x = torch.randn(batch_size, seq_len, input_dim)
+#     targets = torch.randn(batch_size, pred_len)
+#
+#     # 前向传播
+#     main_output, auxiliary_outputs = model(x)
+#
+#     print("=== FTCAN模型测试 ===")
+#     print(f"输入形状: {x.shape}")
+#     print(f"主输出形状: {main_output.shape}")
+#     print(f"辅助输出数量: {len(auxiliary_outputs)}")
+#     for i, aux_out in enumerate(auxiliary_outputs):
+#         print(f"辅助输出 {i + 1} 形状: {aux_out.shape}")
+#
+#     # 损失计算
+#     criterion = FTCANLoss(lambda_aux=0.3)
+#     total_loss, main_loss, aux_loss = criterion((main_output, auxiliary_outputs), targets)
+#
+#     print(f"\n损失计算:")
+#     print(f"总损失: {total_loss.item():.4f}")
+#     print(f"主损失: {main_loss.item():.4f}")
+#     print(f"辅助损失: {aux_loss.item():.4f}")
+#     print(f"模型参数量: {sum(p.numel() for p in model.parameters()):,}")
