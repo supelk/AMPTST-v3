@@ -15,7 +15,7 @@ bash .//scripts//final//h57//AMPTST-v3-head.sh
 bash .//scripts//final//h57//AMPTST-v301-head.sh
 bash .//scripts//final//h57//AMPTST-v4.sh
 bash .//scripts//final//h57//AMPTST-v4-head.sh
-bash .//scripts//final//h57//DLinear.sh
+#bash .//scripts//final//h57//DLinear.sh
 bash .//scripts//final//h57//iTransformer.sh
 bash .//scripts//final//h57//PatchTST.sh
 bash .//scripts//final//h57//TimeMixer.sh
