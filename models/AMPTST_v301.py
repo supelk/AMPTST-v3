@@ -50,6 +50,7 @@ class AMPTST(nn.Module):
         self.channel_independence = configs.channel_independence
         self.preprocess = series_decomp(configs.moving_avg)
         self.pf = configs.pf
+        self.alpha = nn.Parameter(torch.tensor(0.5))
         self.Multi_PTST_period = nn.ModuleList(
             [
                 Encoder(
@@ -128,7 +129,7 @@ class AMPTST(nn.Module):
 
                 o1 = (pi * fo).reshape(B, -1, N)
                 o2 = (po * fi).reshape(B, -1, N)
-                out = o1 + o2
+                out = self.alpha * o1 + (1 - self.alpha) * o2
                 # seasons.append(block_season)
                 # trends.append(block_trend)
                 res.append(out[:,:T,:])

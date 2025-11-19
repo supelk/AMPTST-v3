@@ -329,9 +329,9 @@ class model(nn.Module):
         # 最终输出投影
         x = x.transpose(1, 2)  # [batch_size, d_model, seq_len]
         x = self.output_projection(x)  # [batch_size, d_model, pred_len]
-        x = x.transpose(1, 2)  # [batch_size, pred_len, d_model]
+        main_output = x.transpose(1, 2)  # [batch_size, pred_len, d_model]
 
-        main_output = self.final_output(x).squeeze(-1)  # [batch_size, pred_len]
+        # main_output = self.final_output(x).squeeze(-1)  # [batch_size, pred_len]
 
         if self.use_auxiliary_loss:
             return main_output, auxiliary_outputs
