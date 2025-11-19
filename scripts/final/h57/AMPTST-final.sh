@@ -2,7 +2,7 @@ export CUDA_VISIBLE_DEVICES=0
 model_name=AMPTST-final
 
 seq_len=96
-e_layers=3
+e_layers=2
 
 d_model=32
 d_ff=32
@@ -11,6 +11,7 @@ f=57
 data_path=h57.csv
 des=psl
 for pred_len in 24 48 96 192
+
 #for pred_len in 48
 do
   python -u run.py \

@@ -141,6 +141,7 @@ class AMPTST(nn.Module):
             # residual connection
             res = res + x
             res_list.append(res)
+            # print(res_list.shape)
         return res_list
 
 class Model(nn.Module):
@@ -248,12 +249,16 @@ class Model(nn.Module):
                 x = self.enc_embedding(x)  # [B*N,T,dm] or [B,T,dm]   在特征维度上进行嵌入
                 x_list.append(x)  # [B*N,T,dm] or [B,T,dm]
         # print(f"len of x_list: {len(x_list)}")
-        out_list = self.model(x_list)  # [B*N,T,dm] or [B,T,dm]
+        out_list = x_list
+        for layer in self.model:
+            out_list = layer(out_list)
+        # out_list = self.model(x_list)  # [B*N,T,dm] or [B,T,dm]
         oc_list = []
         # print(f"len of out_list: {len(out_list)}")
         # for i,x in enumerate(out_list):
         #     print(f"{i} of outlist:shape {x.shape}")
         for i,x in enumerate(out_list):
+            # print(x.shape)
             x = x.permute(0, 2, 1).contiguous()
             # print(f"{i} of outlist")
             y = self.head[i](x)  # [B*N,dm,target_w] or [B,dm,target_w]
