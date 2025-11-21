@@ -3,7 +3,7 @@ f=57
 model_name=TSTDLSTM
 seq_len=96
 #for pred_len in 24 96 192
-for pred_len in 48
+for pred_len in 24 48 96 192
 do
   python -u run.py \
     --task_name long_term_forecast \

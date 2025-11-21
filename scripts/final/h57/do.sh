@@ -10,10 +10,10 @@
 #bash .//scripts//final//h57//AMPTST-v2-f-head.sh
 #bash .//scripts//final//h57//AMPTST-v2-p-head.sh
 #bash .//scripts//final//h57//AMPTST-v3.sh
-bash .//scripts//final//h57//AMPTST-v301.sh
+#bash .//scripts//final//h57//AMPTST-v301.sh
 #bash .//scripts//final//h57//AMPTST-v3-head.sh
-bash .//scripts//final//h57//AMPTST-v301-head.sh
-bash .//scripts//final//h57//AMPTST-v301-mse.sh
+#bash .//scripts//final//h57//AMPTST-v301-head.sh
+#bash .//scripts//final//h57//AMPTST-v301-mse.sh
 #bash .//scripts//final//h57//AMPTST-v4.sh
 #bash .//scripts//final//h57//AMPTST-v4-head.sh
 #bash .//scripts//final//h57//DLinear.sh
@@ -21,3 +21,6 @@ bash .//scripts//final//h57//AMPTST-v301-mse.sh
 #bash .//scripts//final//h57//PatchTST.sh
 #bash .//scripts//final//h57//TimeMixer.sh
 #bash .//scripts//final//h57//TimesNet.sh
+bash .//scripts//final//h57//Autoformer.sh
+bash .//scripts//final//h57//informer.sh
+bash .//scripts//final//h57//LSTM.sh
