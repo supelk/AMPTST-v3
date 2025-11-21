@@ -5,7 +5,7 @@ import torch.backends
 from exp.exp_long_term_forecasting import Exp_Long_Term_Forecast
 from exp.exp_long_term_forecasting_DLinear import Exp_Long_Term_Forecast as Exp_Long_Term_Forecast_DLinear
 from exp.exp_long_term_forecasting_TimeMixer import Exp_Long_Term_Forecast as Exp_Long_Term_Forecast_TimeMixer
-
+from exp.exp_long_term_forecasting_decoder import Exp_Long_Term_Forecast as Exp_Long_Term_Forecast_decoder
 from exp.exp_imputation import Exp_Imputation
 from exp.exp_short_term_forecasting import Exp_Short_Term_Forecast
 from exp.exp_anomaly_detection import Exp_Anomaly_Detection
@@ -193,6 +193,8 @@ if __name__ == '__main__':
             Exp = Exp_Long_Term_Forecast_DLinear
         elif args.use_ps_loss and args.model == 'TimeMixer':
             Exp = Exp_Long_Term_Forecast_TimeMixer
+        elif args.use_ps_loss and (args.model == 'Informer' or args.model == 'Autoformer'):
+            Exp = Exp_Long_Term_Forecast_decoder
     elif args.task_name == 'short_term_forecast':
         Exp = Exp_Short_Term_Forecast
     elif args.task_name == 'imputation':
