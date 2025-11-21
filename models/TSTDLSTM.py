@@ -105,20 +105,20 @@ class Model(nn.Module):
                 self.Linear_Trend = nn.ModuleList()
 
                 for i in range(self.channels):
-                    self.Linear_Seasonal.append(nn.LSTM(input_size=1,hidden_size=self.pred_len,num_layers=7,batch_first=True))
-                    self.Linear_Trend.append(nn.LSTM(input_size=1,hidden_size=self.pred_len,num_layers=7,batch_first=True))
+                    self.Linear_Seasonal.append(nn.LSTM(input_size=self.seq_len,hidden_size=self.pred_len,num_layers=7,batch_first=True))
+                    self.Linear_Trend.append(nn.LSTM(input_size=self.seq_len,hidden_size=self.pred_len,num_layers=7,batch_first=True))
 
                 # Use this two lines if you want to visualize the weights
                 # self.Linear_Seasonal[i].weight = nn.Parameter((1/self.seq_len)*torch.ones([self.pred_len,self.seq_len]))
                 # self.Linear_Trend[i].weight = nn.Parameter((1/self.seq_len)*torch.ones([self.pred_len,self.seq_len]))
             else:
-                self.Linear_Seasonal = nn.LSTM(input_size=self.channels,hidden_size=self.pred_len,num_layers=7,batch_first=True)
-                self.Linear_Trend = nn.LSTM(input_size=self.channels,hidden_size=self.pred_len,num_layers=7,batch_first=True)
+                self.Linear_Seasonal = nn.LSTM(input_size=self.seq_len,hidden_size=self.pred_len,num_layers=7,batch_first=True)
+                self.Linear_Trend = nn.LSTM(input_size=self.seq_len,hidden_size=self.pred_len,num_layers=7,batch_first=True)
                 # Use this two lines if you want to visualize the weights
                 # self.Linear_Seasonal.weight = nn.Parameter((1/self.seq_len)*torch.ones([self.pred_len,self.seq_len]))
                 # self.Linear_Trend.weight = nn.Parameter((1/self.seq_len)*torch.ones([self.pred_len,self.seq_len]))
         else:
-            self.model = nn.LSTM(input_size=self.channels,hidden_size=self.pred_len,num_layers=7,batch_first=True)
+            self.model = nn.LSTM(input_size=self.seq_len,hidden_size=self.pred_len,num_layers=7,batch_first=True)
 
         
     def forward(self, x, x_mask=None,dec_input=None,y_mark=None):
@@ -139,7 +139,7 @@ class Model(nn.Module):
                 trend_output = self.Linear_Trend(trend_init)
             x = seasonal_output + trend_output
         else:
-            # x = x.permute(0,2,1)
+            x = x.permute(0,2,1)
             x,_ = self.model(x)
         
         return x.permute(0, 2, 1)  # to [Batch, Output length, Channel]
