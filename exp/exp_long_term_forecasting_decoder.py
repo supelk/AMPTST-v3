@@ -135,8 +135,8 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         # Gradiant based dynamic weighting
         # AMPTST, Patch_TST (TimesNet iTransformer default should be 1)
         corr_gradient = torch.autograd.grad(corr_loss, self.model.decoder.projection.parameters(), create_graph=True)[0]
-        var_gradient = torch.autograd.grad(var_loss, self.model.decoder.projection.head.parameters(), create_graph=True)[0]
-        mean_gradient = torch.autograd.grad(mean_loss, self.model.decoder.projection.head.parameters(), create_graph=True)[0]
+        var_gradient = torch.autograd.grad(var_loss, self.model.decoder.projection.parameters(), create_graph=True)[0]
+        mean_gradient = torch.autograd.grad(mean_loss, self.model.decoder.projection.parameters(), create_graph=True)[0]
         # TimeMixer
         # corr_gradient = torch.autograd.grad(corr_loss, self.model.predict_layers[-1].parameters(), create_graph=True)[0]
         # var_gradient = torch.autograd.grad(var_loss, self.model.predict_layers[-1].parameters(), create_graph=True)[0]

@@ -35,6 +35,7 @@ do
     --d_layers 1 \
     --d_ff $d_ff \
     --factor 3 \
+    --freq 10min \
     --channel_independence 0 \
     --down_sampling_layers 3 \
     --down_sampling_window 2 \
@@ -42,6 +43,7 @@ do
     --des $des \
     --itr 1 \
     --pf 0 \
+    --result_path writing \
     --use_ps_loss 1 \
     --head_or_projection 1
 done
