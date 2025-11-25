@@ -30,5 +30,5 @@ do
     --des 'psl' \
     --itr 1 \
     --n_heads 4 \
-    --use_ps_loss 1
+    --use_ps_loss 0
 done

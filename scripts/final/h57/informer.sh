@@ -19,6 +19,8 @@ do
     --d_model 32 \
     --d_ff 32 \
     --pred_len $pred_len \
+    --d_model 512 \
+    --d_ff 2048 \
     --e_layers 2 \
     --d_layers 1 \
     --factor 3 \
